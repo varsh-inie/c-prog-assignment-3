@@ -1,0 +1,446 @@
+1.
+#include <stdio.h>
+int checkPrimeNumber(int n);
+int main() {
+
+  int n1, n2, i, flag;
+
+  printf("Enter two positive integers: ");
+  scanf("%d %d", &n1, &n2);
+
+  // swap n1 and n2 if n1 > n2
+  if (n1 > n2) {
+    n1 = n1 + n2;
+    n2 = n1 - n2;
+    n1 = n1 - n2;
+  }
+
+  printf("Prime numbers between %d and %d are: ", n1, n2);
+  for (i = n1 + 1; i < n2; ++i) {
+
+    // flag will be equal to 1 if i is prime
+    flag = checkPrimeNumber(i);
+
+    if (flag == 1) {
+      printf("%d ", i);
+    }
+  }
+  
+  return 0;
+}
+
+// user-defined function to check prime number
+int checkPrimeNumber(int n) {
+  int j, flag = 1;
+
+  for (j = 2; j <= n / 2; ++j) {
+
+    if (n % j == 0) {
+      flag = 0;
+      break;
+    }
+  }
+
+  return flag;
+}
+
+
+
+
+
+
+
+2.
+#include <stdio.h>
+int checkPrime(int n);
+int main() {
+  int n, i, flag = 0;
+  printf("Enter a positive integer: ");
+  scanf("%d", &n);
+
+  for (i = 2; i <= n / 2; ++i) {
+    // condition for i to be a prime number
+    if (checkPrime(i) == 1) {
+      // condition for n-i to be a prime number
+      if (checkPrime(n - i) == 1) {
+        printf("%d = %d + %d\n", n, i, n - i);
+        flag = 1;
+      }
+    }
+  }
+
+  if (flag == 0)
+    printf("%d cannot be expressed as the sum of two prime numbers.", n);
+
+  return 0;
+}
+
+// function to check prime number
+int checkPrime(int n) {
+  int i, isPrime = 1;
+
+  // 0 and 1 are not prime numbers
+  if (n == 0 || n == 1) {
+    isPrime = 0;
+  }
+  else {
+    for(i = 2; i <= n/2; ++i) {
+      if(n % i == 0) {
+        isPrime = 0;
+        break;
+      }
+    }
+  }
+
+  return isPrime;
+}
+}
+
+
+
+
+
+
+3.
+#include <stdio.h>
+int hcf(int n1, int n2);
+int main() {
+    int n1, n2;
+    printf("Enter two positive integers: ");
+    scanf("%d %d", &n1, &n2);
+    printf("G.C.D of %d and %d is %d.", n1, n2, hcf(n1, n2));
+    return 0;
+}
+
+int hcf(int n1, int n2) {
+    if (n2 != 0)
+        return hcf(n2, n1 % n2);
+    else
+        return n1;
+}
+
+
+
+
+
+
+
+4.
+#include <stdio.h>
+
+int main() {
+
+    int n1, n2, max;
+
+    printf("Enter two positive integers: ");
+    scanf("%d %d", &n1, &n2);
+
+    // maximum number between n1 and n2 is stored in max
+    max = (n1 > n2) ? n1 : n2;
+
+    while (1) {
+        if ((max % n1 == 0) && (max % n2 == 0)) {
+            printf("The LCM of %d and %d is %d.", n1, n2, max);
+            break;
+        }
+        ++max;
+    }
+    return 0;
+}
+
+
+
+
+
+
+5.
+#include <stdio.h>
+#include <string.h>
+ 
+int main()
+{
+    char str[100], result;
+    int i, len;
+    int max = 0;
+    int freq[256] = {0};
+    printf("C Program to Find Maximum Occurring Character in a String \n");
+    printf("Please Enter a String :  ");
+    fgets(str, 100, stdin);
+    len = strlen(str);
+    for(i = 0; i < len; i++)
+    {
+        freq[str[i]]++;
+    }
+    for(i = 0; i < len; i++)
+    {
+        if(max <= freq[str[i]])
+        {
+            max = freq[str[i]];
+            result = str[i];
+        }
+    }
+    printf("\n Maximum Occurring Character in a String %s is '%c'  %d times", str, result, max);
+    return 0;
+}
+
+
+
+
+
+
+6.
+#include <stdio.h>
+#include <string.h>
+
+int is_anagram(char a[], char b[]) { 
+  // if length of both strings is not equal return 0 as they are not anagrams
+  if (strlen(a) != strlen(b)) {
+    return 0;
+  }
+
+  int i = 0;
+  int freq_a[26] = {0};
+  int freq_b[26] = {0};
+  // storing frequency of each character in freq arrays of two different strings.
+  for (i = 0; a[i] && b[i]; i++) {
+    freq_a[a[i] - 97]++;
+    freq_b[b[i] - 97]++;
+  }
+  // if the number of occurrences of all characters is same return 1 else, returns 0.
+  for (i = 0; i < 26; i++) {
+    if (freq_a[i] != freq_b[i]) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
+int main() {
+  char a[50], b[50];
+
+  printf("Enter first string : ");
+  scanf("%s", a); // first string
+
+  printf("Enter second string : ");
+  scanf("%s", b); // second string
+  // calling function to check whether strings are anagram or not. if it returns 1 strings are 
+  // anagram otherwise not.
+  if (is_anagram(a, b) == 1) {
+    printf("Two strings are an anagram to each other");
+  } else {
+    printf("Two strings are not an anagram to each other");
+  }
+
+  return 0;
+}
+
+
+
+
+
+
+
+7.
+* C Program To Find the Sum of ASCII values of All Characters in a 
+ * given String
+ */
+#include <stdio.h>
+#include <string.h>
+ 
+void main()
+{
+    int sum = 0, i, len;
+    char string1[100];
+ 
+    printf("Enter the string : ");
+    scanf("%[^\n]s", string1);
+        len = strlen(string1);
+    for (i = 0; i < len; i++)
+    {
+        sum = sum + string1[i];
+    }
+    printf("\nSum of all characters : %d ",sum);
+}
+
+
+
+
+
+8.
+// C program to print all permutations with duplicates
+// allowed
+#include <stdio.h>
+#include <string.h>
+ 
+/* Function to swap values at two pointers */
+
+void swap(char* x, char* y)
+{
+
+    char temp;
+
+    temp = *x;
+
+    *x = *y;
+
+    *y = temp;
+}
+ 
+/* Function to print permutations of string
+This function takes three parameters:
+1. String
+2. Starting index of the string
+3. Ending index of the string. */
+
+void permute(char* a, int l, int r)
+{
+
+    int i;
+
+    if (l == r)
+
+        printf("%s\n", a);
+
+    else {
+
+        for (i = l; i <= r; i++) {
+
+            swap((a + l), (a + i));
+
+            permute(a, l + 1, r);
+
+            swap((a + l), (a + i)); // backtrack
+
+        }
+
+    }
+}
+ 
+/* Driver code */
+
+int main()
+{
+
+    char str[] = "ABC";
+
+    int n = strlen(str);
+
+    permute(str, 0, n - 1);
+
+    return 0;
+}
+
+
+
+
+
+
+9.
+/**
+ * C program to copy an array to another array using pointers
+ */
+
+#include <stdio.h>
+
+#define MAX_SIZE 100 // Maximum array size
+
+
+/* Function declaration to print array */
+void printArray(int arr[], int size);
+
+
+int main()
+{
+    int source_arr[MAX_SIZE], dest_arr[MAX_SIZE];
+    int size, i;
+
+    int *source_ptr = source_arr;   // Pointer to source_arr
+    int *dest_ptr   = dest_arr;     // Pointer to dest_arr
+
+    int *end_ptr;
+
+
+    /*
+     * Input size and elements in source array
+     */
+    printf("Enter size of array: ");
+    scanf("%d", &size);
+    printf("Enter elements in array: ");
+    for (i = 0; i < size; i++)
+    {
+        scanf("%d", (source_ptr + i));
+    }
+
+
+    // Pointer to last element of source_arr
+    end_ptr = &source_arr[size - 1];
+
+
+    /* Print source and destination array before copying */
+    printf("\nSource array before copying: ");
+    printArray(source_arr, size);
+
+    printf("\nDestination array before copying: ");
+    printArray(dest_arr, size);
+
+
+
+    /*
+     * Run loop till source_ptr exists in source_arr
+     * memory range.
+     */
+    while(source_ptr <= end_ptr)
+    {
+        *dest_ptr = *source_ptr;
+
+        // Increment source_ptr and dest_ptr
+        source_ptr++;
+        dest_ptr++;
+    }
+
+
+    /* Print source and destination array after copying */
+    printf("\n\nSource array after copying: ");
+    printArray(source_arr, size);
+
+    printf("\nDestination array after copying: ");
+    printArray(dest_arr, size);
+
+
+    return 0;
+}
+
+
+/**
+ * Function to print array elements.
+ * 
+ * @arr     Integer array to print.
+ * @size    Size of array.
+ */
+void printArray(int *arr, int size)
+{
+    int i;
+
+    for (i = 0; i < size; i++)
+    {
+        printf("%d, ", *(arr + i));
+    }
+}
+
+
+
+
+10.
+#include <stdio.h>  
+#include <string.h>  
+int main()  
+{  
+    char str[40]; // declare the size of character string  
+    printf (" \n Enter a string to be reversed: ");  
+    scanf ("%s", str);  
+      
+    // use strrev() function to reverse a string  
+    printf (" \n After the reverse of a string: %s ", strrev(str));  
+    return 0;  
+}
